@@ -3,7 +3,7 @@ script#email-template(type='text/x-handlebars-template')
     td {{mailto from.[0]}}
     td {{subject}}
     td
-      span(data-livestamp='{{date}}')
+      span(data-livestamp='{{createdAt}}')
       div.btn-group.pull-right.m-l-md
         button.btn.btn-secondary.btn-sm.dropdown-toggle(data-toggle='dropdown') Actions
         div.dropdown-menu
