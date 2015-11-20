@@ -1,0 +1,11 @@
+{
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "indent": [2, "tab"],
+    "quotes": [2, "single", "avoid-escape"]
+  }
+}

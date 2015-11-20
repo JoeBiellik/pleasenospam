@@ -1,0 +1,19 @@
+mail:
+  image: node:latest
+  command: "node mail-server.js"
+  working_dir: /app
+  links:
+   - db
+  environment:
+   - NODE_ENV=docker
+  volumes:
+   - .:/app
+  ports:
+   - "2525:25"
+
+db:
+  image: rethinkdb:latest
+  ports:
+   - "8081:8080"
+   - "28015:28015"
+   - "28016:28016"

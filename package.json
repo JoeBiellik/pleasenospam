@@ -1,0 +1,50 @@
+{
+  "name": "pleasenospam",
+  "version": "1.0.0",
+  "description": "Temporary email service",
+  "license": "MIT",
+  "repository": "JoeBiellik/pleasenospam",
+  "homepage": "https://github.com/JoeBiellik/pleasenospam",
+  "author": "Joe Biellik <contact@joebiellik.com> (http://joebiellik.com/)",
+  "bugs": {
+    "email": "contact@joebiellik.com",
+    "url": "https://github.com/JoeBiellik/pleasenospam/issues"
+  },
+  "keywords": [
+    "temporary email",
+    "temporary mail",
+    "temp email",
+    "temp mail",
+    "smtp"
+  ],
+  "main": "server.js",
+  "scripts": {
+    "watch": "./node_modules/.bin/nodemon -L -e js,json -i ./public",
+    "lint": "./node_modules/.bin/eslint . && ./node_modules/.bin/jade-lint ./views/",
+    "mail-server": "./node_modules/.bin/nodemon mail-server.js"
+  },
+  "dependencies": {
+    "babel-core": "^6.1.19",
+    "babel-polyfill": "^6.1.19",
+    "babel-preset-es2015": "^6.1.18",
+    "config": "^1.16.0",
+    "jade": "^1.11.0",
+    "koa": "^1.1.0",
+    "koa-compress": "^1.0.8",
+    "koa-logger": "^1.3.0",
+    "koa-router": "^5.2.3",
+    "koa-static-cache": "^3.1.2",
+    "koa-views": "^3.1.0",
+    "mailcomposer": "^2.1.0",
+    "mailparser": "^0.5.3",
+    "smtp-connection": "^1.3.1",
+    "smtp-server": "^1.7.1",
+    "thinky": "^2.1.12"
+  },
+  "devDependencies": {
+    "babel-eslint": "^4.1.3",
+    "eslint": "^1.7.2",
+    "jade-lint": "^2.0.0",
+    "nodemon": "^1.7.2"
+  }
+}

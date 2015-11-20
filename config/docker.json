@@ -1,0 +1,10 @@
+{
+  "port": 3000,
+  "mail": {
+    "port": 2525,
+    "hostname": "pleasenospam.email",
+    "domains": [
+      "pleasenospam.email"
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+script#email-template(type='text/x-handlebars-template')
+  tr.header //.table-info
+    td {{mailto from.[0]}}
+    td {{subject}}
+    td
+      span(data-livestamp='{{date}}')
+      div.btn-group.pull-right.m-l-md
+        button.btn.btn-secondary.btn-sm.dropdown-toggle(data-toggle='dropdown') Actions
+        div.dropdown-menu
+          a.dropdown-item(href='#', data-toggle='modal', data-target='#delete-modal' data-id='{{id}}') Delete
+          a.dropdown-item(href='/{{id}}/original', target='_blank') View Original
+  tr.body.hidden
+    td(colspan='4')
+      pre
+       | {{text}}

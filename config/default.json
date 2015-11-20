@@ -1,0 +1,24 @@
+{
+  "port": 3000,
+  "cacheAge": 86400,
+  "prettyHtml": true,
+  "keys": [
+    "sfduioh38hfihq2h4308hrqhpwsfnwd08q34yhe012hn",
+    "890awhodn3094ncqa092o2h3e08dhaosh3892he0adhq"
+  ],
+  "db": {
+    "db": "test",
+    "host": "localhost",
+    "port": 28015
+  },
+  "mail": {
+    "host": "0.0.0.0",
+    "port": 25,
+    "hostname": "pleasenospam",
+    "banner": "Hi can I have some mail please?",
+    "domains": [
+      "localhost",
+      "pleasenospam.email"
+    ]
+  }
+}
