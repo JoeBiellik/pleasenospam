@@ -1,5 +1,8 @@
 {
   "port": 3000,
+  "db": {
+    "host": "db"
+  },
   "mail": {
     "port": 2525,
     "hostname": "pleasenospam.email",
