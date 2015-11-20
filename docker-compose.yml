@@ -1,6 +1,6 @@
 mail:
   image: node:latest
-  command: "node mail-server.js"
+  command: "npm run mail-server"
   working_dir: /app
   links:
    - db
@@ -9,10 +9,12 @@ mail:
   volumes:
    - .:/app
   ports:
-   - "2525:25"
+   - "2525:2525"
 
 db:
   image: rethinkdb:latest
+  expose:
+   - 28015
   ports:
    - "8081:8080"
    - "28015:28015"
