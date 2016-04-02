@@ -19,9 +19,10 @@
   ],
   "main": "server.js",
   "scripts": {
+    "mail-server": "node mail-server.js",
     "watch": "./node_modules/.bin/nodemon -L -e js,json -i ./public",
-    "lint": "./node_modules/.bin/eslint . && ./node_modules/.bin/jade-lint ./views/",
-    "mail-server": "./node_modules/.bin/nodemon mail-server.js"
+    "watch mail-server": "./node_modules/.bin/nodemon -L -e js,json -i ./public mail-server.js",
+    "lint": "./node_modules/.bin/eslint . && ./node_modules/.bin/jade-lint ./views/"
   },
   "dependencies": {
     "babel-core": "^6.1.19",
