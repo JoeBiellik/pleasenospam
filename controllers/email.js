@@ -44,8 +44,8 @@ module.exports = {
 
 	*test() {
 		let connection = new SMTPConnection({
-			host: config.mail.host,
-			port: config.mail.port,
+			host: config.app.mail.host,
+			port: config.app.mail.port,
 			name: config.mail.hostname,
 			secure: false,
 			ignoreTLS: true,

@@ -5,7 +5,7 @@ var sse = require('.//controllers/sse');
 
 router.get('/', function *() {
 	yield this.render('index', {
-		pretty: config.prettyHtml,
+		pretty: config.app.prettyHtml,
 		title: 'please, no spam',
 		domains: config.mail.domains
 	});

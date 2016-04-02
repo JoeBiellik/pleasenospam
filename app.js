@@ -8,16 +8,16 @@ var app = require('koa')();
 var router = require('./router');
 var db = require('./db')();
 
-app.keys = config.keys;
+app.keys = config.app.keys;
 app.proxy = true;
 
 app.use(require('koa-logger')());
 app.use(require('koa-compress')());
 app.use(require('koa-static-cache')('./public', {
-	maxAge: config.cacheAge
+	maxAge: config.app.cacheAge
 }));
-app.use(require('koa-views')('./views', {
-	default: 'jade'
+app.use(require('koa-views')(__dirname + '/views', {
+	extension: 'jade'
 }));
 
 app.use(router.routes(), router.allowedMethods());

@@ -1,10 +1,14 @@
 {
-  "port": 3000,
+  "app": {
+    "port": 80,
+    "mail": {
+      "host": "mail"
+    }
+  },
   "db": {
     "host": "db"
   },
   "mail": {
-    "port": 2525,
     "hostname": "pleasenospam.email",
     "domains": [
       "pleasenospam.email"
