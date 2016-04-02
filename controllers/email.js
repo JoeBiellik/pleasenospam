@@ -1,6 +1,6 @@
 var config = require('config');
 var SMTPConnection = require('smtp-connection');
-var mailcomposer = require("mailcomposer");
+var mailcomposer = require('mailcomposer');
 var db = require('../db')();
 var Emails = require('../models/email');
 
