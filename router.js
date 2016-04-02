@@ -23,5 +23,6 @@ router.get('/:email/updates', sse.subscribe);
 router.get('/:email.json', email.get);
 router.get('/:email/test', email.test);
 router.get('/:id/original', email.original);
+router.delete ('/:id', email.delete);
 
 module.exports = router;

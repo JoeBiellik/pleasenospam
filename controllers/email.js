@@ -42,6 +42,16 @@ module.exports = {
 		}
 	},
 
+	*delete() {
+		try {
+			let email = yield Emails.get(this.params.id).delete();
+
+			this.status = 204;
+		} catch (ex) {
+			this.throw('Email not found', 404);
+		}
+	},
+
 	*test() {
 		let connection = new SMTPConnection({
 			host: config.app.mail.host,

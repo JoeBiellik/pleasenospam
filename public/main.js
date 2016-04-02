@@ -80,6 +80,12 @@ function Controller(opts) {
 
 	this.loading = false;
 	this.currentAddress = null;
+
+	if (this.getHash() == '') {
+		this.elements.spinner.addClass('hidden');
+
+		// Home page
+	}
 }
 
 Controller.prototype = {
@@ -113,6 +119,7 @@ Controller.prototype = {
 		});
 	},
 	update: function(email) {
+		console.log(email);
 		$('tbody', this.elements.table).prepend(this.template(email));
 
 		this.elements.table.removeClass('hidden');
@@ -120,7 +127,12 @@ Controller.prototype = {
 		this.elements.spinner.addClass('hidden');
 	},
 	delete: function(id) {
-		console.log(id);
+		$('tr[data-id="' + id + '"]', this.elements.table).remove();
+
+		$.ajax({
+			url: '/' + id,
+			type: 'DELETE'
+		});
 	},
 	clear: function() {
 		this.currentAddress = null;
