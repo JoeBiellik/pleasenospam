@@ -1,21 +1,42 @@
-mail:
-  image: node:latest
-  command: "npm run mail-server"
-  working_dir: /app
-  links:
-   - db
-  environment:
-   - NODE_ENV=docker
-  volumes:
-   - .:/app
-  ports:
-   - "2525:2525"
-
-db:
-  image: rethinkdb:latest
-  expose:
-   - 28015
-  ports:
-   - "8081:8080"
-   - "28015:28015"
-   - "28016:28016"
+version: '2'
+services:
+  app:
+    container_name: app
+    image: node:latest
+    command: "npm start"
+    working_dir: /app
+    links:
+     - mail
+     - db
+    environment:
+     - NODE_ENV=docker
+    volumes:
+     - .:/app
+    ports:
+     - "3000:80"
+  mail:
+    container_name: mail
+    image: node:latest
+    command: "npm run mail-server"
+    working_dir: /app
+    links:
+     - db
+    environment:
+     - NODE_ENV=docker
+    volumes:
+     - .:/app
+    expose:
+     - 25
+    ports:
+     - "2525:25"
+  db:
+    container_name: db
+    image: rethinkdb:latest
+    volumes:
+     - ./db:/data
+    expose:
+     - 28015
+    ports:
+     - "8080:8080"
+     - "28015:28015"
+     - "28016:28016"
