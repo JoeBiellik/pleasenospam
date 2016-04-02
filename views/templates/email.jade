@@ -4,7 +4,7 @@ script#email-template(type='text/x-handlebars-template')
     td {{subject}}
     td
       span(data-livestamp='{{createdAt}}')
-      div.btn-group.pull-right.m-l-md
+      div.btn-group.pull-md-right.m-l-2
         button.btn.btn-secondary.btn-sm.dropdown-toggle(data-toggle='dropdown') Actions
         div.dropdown-menu
           a.dropdown-item(href='#', data-toggle='modal', data-target='#delete-modal' data-id='{{id}}') Delete

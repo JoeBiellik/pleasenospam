@@ -74,12 +74,12 @@ block head
     }
 
 block content
-  main.container.m-y-md
+  main.container.m-y-2
     header
-      h1.display-2.pull-left.m-b-lg.m-r-lg #{title}
+      h1.display-3.pull-md-left.m-b-3.m-r-3 #{title}
 
-      form.input-group.pull-right
-        input.form-control.text-right#address(type='text', required)
+      form.input-group.pull-md-right
+        input.form-control.text-md-right#address(type='text', required)
         span.input-group-addon @
         div.input-group-btn
           button.btn.btn-secondary.dropdown-toggle#domain(data-toggle='dropdown') #{domains[0]}
@@ -92,7 +92,7 @@ block content
     a(href='https://github.com/JoeBiellik/pleasenospam')
       img(style='position: absolute; top: 0; right: 0; border: 0;', src='https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png', alt='Fork me on GitHub')
 
-    div.p-y-md.clearfix
+    div.p-y-2.clearfix
 
     div.spinner
       div.bounce1
@@ -102,8 +102,8 @@ block content
     div.alert.alert-danger.hidden
       p #[strong Something has gone wrong!] Please check you entered a valid email address or #[a.alert-link(href='/') try reloading the page]
 
-    div.jumbotron.p-y-md.hidden
-      button.btn.btn-primary-outline.m-t-md.pull-right Send me a test email
+    div.jumbotron.p-y-2.hidden
+      button.btn.btn-primary-outline.m-t-2.pull-md-right Send me a test email
       h1 No email yet!
       p.lead.m-b-0 New emails will show up here in real-time
 
@@ -134,5 +134,5 @@ block content
   script(src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/livestamp/1.1.2/livestamp.min.js')
-  script(src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/js/bootstrap.min.js')
   script(src='/main.js')
