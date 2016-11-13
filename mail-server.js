@@ -1,6 +1,5 @@
 'use strict';
 
-var util = require('util');
 var config = require('config');
 var SMTPServer = require('smtp-server').SMTPServer;
 var MailParser = require('mailparser').MailParser;

@@ -1,0 +1,18 @@
+{
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "extends": ["eslint:recommended"],
+  "parser": "babel-eslint",
+  "rules": {
+    "indent": ["error", "tab"],
+    "quotes": ["error", "single", "avoid-escape"],
+    "linebreak-style": ["error", "unix"],
+    "semi": ["error", "always"],
+    "no-trailing-spaces": ["warn"],
+    "comma-dangle": ["error"],
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "space-before-function-paren": ["error", "never"]
+  }
+}

@@ -1,4 +1,7 @@
-$(document).ready(function() {
+/* eslint-env browser */
+/* global $ Handlebars */
+
+$(function() {
 	var emails = new Controller({
 		elements: {
 			table: $('table.table'),
@@ -105,7 +108,7 @@ Controller.prototype = {
 			self.subscribe(emailAddress);
 
 			if (data.length) {
-				data.forEach(function (email) {
+				data.forEach(function(email) {
 					self.update(email);
 				});
 			} else {
@@ -119,7 +122,6 @@ Controller.prototype = {
 		});
 	},
 	update: function(email) {
-		console.log(email);
 		$('tbody', this.elements.table).prepend(this.template(email));
 
 		this.elements.table.removeClass('hidden');
@@ -189,7 +191,7 @@ Controller.prototype = {
 
 		$.get('/' + email + '/test');
 	},
-	onHashChange: function(e) {
+	onHashChange: function() {
 		var hash = this.getHash();
 
 		if (!hash.length) return;
@@ -212,7 +214,7 @@ Controller.prototype = {
 				window.location.hash = hash + '@' + domains[0];
 				return;
 			}
-	
+
 			if (parts.length != 2) {
 				this.elements.spinner.addClass('hidden');
 				this.elements.error.removeClass('hidden');

@@ -6,7 +6,7 @@ require('babel-core/register')({
 var config = require('config');
 var app = require('koa')();
 var router = require('./router');
-var db = require('./db')();
+require('./db')();
 
 app.keys = config.app.keys;
 app.proxy = true;

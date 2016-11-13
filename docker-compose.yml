@@ -1,7 +1,6 @@
 version: '2'
 services:
   app:
-    container_name: app
     image: node:latest
     command: "npm start"
     working_dir: /app
@@ -15,7 +14,6 @@ services:
     ports:
      - "3000:80"
   mail:
-    container_name: mail
     image: node:latest
     command: "npm run mail-server"
     working_dir: /app
@@ -30,7 +28,6 @@ services:
     ports:
      - "2525:25"
   db:
-    container_name: db
     image: rethinkdb:latest
     volumes:
      - ./db:/data

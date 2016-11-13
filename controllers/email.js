@@ -26,7 +26,6 @@ module.exports = {
 
 			this.body = emails;
 		} catch (ex) {
-			console.log(ex);
 			this.throw('Email not found', 404);
 		}
 	},
@@ -44,7 +43,7 @@ module.exports = {
 
 	*delete() {
 		try {
-			let email = yield Emails.get(this.params.id).delete();
+			yield Emails.get(this.params.id).delete();
 
 			this.status = 204;
 		} catch (ex) {
@@ -75,7 +74,7 @@ module.exports = {
 				text: 'Hello World!\n\nNow go try with a real email!'
 			});
 
-			connection.send(envelope, mail.createReadStream(), (error, info) => {
+			connection.send(envelope, mail.createReadStream(), (error) => {
 				if (error) {
 					console.error(error);
 					connection.close();

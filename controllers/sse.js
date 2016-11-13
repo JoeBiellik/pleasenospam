@@ -1,6 +1,5 @@
 var emailStream = require('../lib/email-stream');
 var sseTransform = require('../lib/sse-transform');
-var Emails = require('../models/email');
 
 module.exports = {
 	*subscribe() {
@@ -14,7 +13,7 @@ module.exports = {
 		var socket = this.socket;
 		socket.on('error', close);
 		socket.on('close', close);
-		
+
 		var body = this.body = sseTransform();
 		var stream = emailStream();
 		stream.pipe(body);
