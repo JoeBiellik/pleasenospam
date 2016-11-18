@@ -15,7 +15,9 @@ module.exports = {
 		socket.on('close', close);
 
 		var body = this.body = sseTransform();
-		var stream = emailStream();
+		var stream = emailStream({
+			email: this.params.email
+		});
 		stream.pipe(body);
 
 		function close() {
