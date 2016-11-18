@@ -21,7 +21,7 @@ module.exports = thinky.createModel('emails', {
 	sentDate: thinky.type.date(),
 	receivedDate: thinky.type.date(),
 	original: thinky.type.string(),
-	createdAt: thinky.type.date().default(Date.now())
+	createdAt: thinky.type.date().default(thinky.r.now())
 }, {
 	//enforce_missing: true,
 	//enforce_extra: 'strict',
