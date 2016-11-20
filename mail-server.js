@@ -35,9 +35,6 @@ const server = new SMTPServer({
 					email.text = text;
 					email.html = html;
 
-					console.log(email.text);
-					console.log(email.html);
-
 					// Save email
 					(new Email(email)).save();
 
