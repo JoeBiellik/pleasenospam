@@ -1,15 +1,17 @@
 'use strict';
 
-var config = require('config');
-var SMTPServer = require('smtp-server').SMTPServer;
-var MailParser = require('mailparser').MailParser;
-var PassThrough = require('stream').PassThrough;
-var Email = require('./models/email');
+const config = require('config');
+const SMTPServer = require('smtp-server').SMTPServer;
+const MailParser = require('mailparser').MailParser;
+const PassThrough = require('stream').PassThrough;
+const sanitize = require('./lib/email-sanitize');
+const Email = require('./models/email');
 
-var server = new SMTPServer({
+const server = new SMTPServer({
 	name: config.mail.hostname,
 	banner: config.mail.banner,
 	secure: false,
+	streamAttachments: true,
 	disabledCommands: ['AUTH'],
 	onRcptTo: function(address, session, callback) {
 		// Only accept whitelisted recipient address domains
@@ -29,10 +31,18 @@ var server = new SMTPServer({
 			streamToString(original, (originalData) => {
 				email.original = originalData;
 
-				// Save email
-				(new Email(email)).save();
+				sanitize(email.text, email.html, email.subject, (text, html) => {
+					email.text = text;
+					email.html = html;
 
-				callback();
+					console.log(email.text);
+					console.log(email.html);
+
+					// Save email
+					(new Email(email)).save();
+
+					callback();
+				});
 			});
 		});
 

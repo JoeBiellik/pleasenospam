@@ -14,7 +14,7 @@ $(function() {
 	});
 
 	$('form').on('submit', emails.onSubmit.bind(emails));
-	$('button.btn-primary-outline').on('click', emails.onTestClick.bind(emails));
+	$('button.btn-outline-primary').on('click', emails.onTestClick.bind(emails));
 	$(window).on('hashchange', emails.onHashChange.bind(emails));
 
 	$(window).trigger('hashchange');
@@ -35,7 +35,9 @@ $(function() {
 		if (e.which == 13) {
 			e.preventDefault();
 
-			$('form').trigger('submit');
+			$('form').find(':submit').click();
+
+			$(this).focus();
 		}
 	});
 
@@ -43,7 +45,25 @@ $(function() {
 		if ($(e.target).prop('tagName') != 'TD') return;
 
 		var header = $(this);
+		var id = header.data('id');
 		var body = header.next('tr.body');
+		var container = body.find('td');
+		var iframe = container.find('iframe');
+
+		if (body.hasClass('hidden') && !iframe.attr('src')) {
+			iframe.off('load').on('load', function() {
+				$(this).height(0); // Needed or the iframe won't shrink
+
+				$(this).height($(this).contents().outerHeight());
+
+				// Allow for scrollbar if visible
+				if ((window.innerWidth - $(window).width()) > 0) {
+					$(this).height($(this).height() + (window.innerWidth - $(window).width()));
+				}
+			});
+
+			iframe.attr('src', '/' + id + '.html');
+		}
 
 		header.removeClass('table-info');
 		header.toggleClass('table-active');
@@ -72,12 +92,25 @@ function Controller(opts) {
 		var address = Handlebars.escapeExpression(email.address);
 		var name = Handlebars.escapeExpression(email.name) || null;
 
-		if (name) {
-			return new Handlebars.SafeString('<a href="mailto:' + address + '">' + name + ' &lt;' + address + '&gt;</a>');
-		} else {
-			return new Handlebars.SafeString('<a href="mailto:' + address + '">' + address + '</a>');
-		}
+		return new Handlebars.SafeString('<a href="mailto:' + address + '" target="_blank">' + (name ? name + ' &lt;' + address + '&gt;' : address) + '</a>');
 	});
+
+	Handlebars.registerHelper('mailtolink', function(email, subject = '') {
+		var address = Handlebars.escapeExpression(email.address);
+		var name = Handlebars.escapeExpression(email.name) || null;
+		var subject = Handlebars.escapeExpression(subject);
+
+		return new Handlebars.SafeString('mailto:' + (name ? name + ' &lt;' + address + '&gt;' : address) + '?subject=' + subject);
+	});
+
+	Handlebars.registerHelper('timestamp', function(timestamp) {
+		timestamp = Handlebars.escapeExpression(timestamp);
+		var date = new Date(timestamp).toLocaleString(); // TODO: Moment.js format
+
+		return new Handlebars.SafeString('<time datetime="' + timestamp + '" data-livestamp="' + timestamp + '" title="' + date + '"></time>');
+	});
+
+	Handlebars.registerHelper('default', function (a, b) { return a ? a : b; });
 
 	this.template = Handlebars.compile($('script#email-template').html());
 
@@ -122,8 +155,19 @@ Controller.prototype = {
 		});
 	},
 	update: function(email) {
-		$('tbody', this.elements.table).prepend(this.template(email));
+		var element = $(this.template(email));
 
+		$('tbody', this.elements.table).prepend(element);
+
+		$('td header', element).on('click', ' a.view-toggle', function(e) {
+			e.preventDefault();
+
+			$('iframe', element).attr('src', $(this).attr('href'));
+
+			$('td header a.view-toggle', element).removeClass('hidden');
+			$(this).addClass('hidden');
+		})
+		
 		this.elements.table.removeClass('hidden');
 		this.elements.empty.addClass('hidden');
 		this.elements.spinner.addClass('hidden');
@@ -176,9 +220,9 @@ Controller.prototype = {
 
 		if (this.getHash() != email) {
 			window.location.hash = email;
+		} else {
+			this.load(email);
 		}
-
-		this.load(email);
 
 		this.loading = false;
 	},

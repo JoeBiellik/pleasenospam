@@ -22,7 +22,7 @@ module.exports = {
 				return email('to').contains((to) => {
 					return to('address').eq(this.params.email);
 				});
-			}).orderBy(db.r.desc('date'));
+			}).orderBy(db.r.asc('date'));
 
 			this.body = emails;
 		} catch (ex) {
@@ -30,12 +30,36 @@ module.exports = {
 		}
 	},
 
-	*original() {
+	*raw() {
 		try {
 			let email = yield Emails.get(this.params.id).run();
 
 			this.type = 'text/plain; charset=utf-8';
 			this.body = email.original || '';
+		} catch (ex) {
+			this.throw('Email not found', 404);
+		}
+	},
+
+	*html() {
+		try {
+			let email = yield Emails.get(this.params.id).run();
+
+			this.type = 'text/html; charset=utf-8';
+			this.body = email.html || '';
+			this.set('X-Frame-Options', 'SAMEORIGIN');
+		} catch (ex) {
+			this.throw('Email not found', 404);
+		}
+	},
+
+	*text() {
+		try {
+			let email = yield Emails.get(this.params.id).run();
+
+			this.type = 'text/plain; charset=utf-8';
+			this.body = email.text || '';
+			this.set('X-Frame-Options', 'SAMEORIGIN');
 		} catch (ex) {
 			this.throw('Email not found', 404);
 		}
