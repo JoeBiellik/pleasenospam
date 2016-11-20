@@ -15,13 +15,7 @@ $(function() {
 		}
 	});
 
-	$('form').on('submit', emails.onSubmit.bind(emails));
-	$('button.btn-outline-primary').on('click', emails.onTestClick.bind(emails));
-	$(window).on('hashchange', emails.onHashChange.bind(emails));
-
-	$(window).trigger('hashchange');
-
-	$('.dropdown-menu a').click(function(e) {
+	$('.dropdown-menu a').on('click', function(e) {
 		e.preventDefault();
 
 		var item = $(this);
@@ -33,7 +27,7 @@ $(function() {
 		button.text(item.text());
 	});
 
-	$('input#address').keypress(function(e) {
+	$('input#address').on('keypress', function(e) {
 		if (e.which == 13) {
 			e.preventDefault();
 
@@ -42,6 +36,12 @@ $(function() {
 			$(this).focus();
 		}
 	});
+
+	$('form').on('submit', emails.onSubmit.bind(emails));
+	$('button.btn-outline-primary').on('click', emails.onTestClick.bind(emails));
+	$(window).on('hashchange', emails.onHashChange.bind(emails));
+
+	$(window).trigger('hashchange');
 
 	$('table tbody').on('click', 'tr.header', function(e) {
 		if ($(e.target).prop('tagName') != 'TD') return;
@@ -77,7 +77,7 @@ $(function() {
 		$(this).find('button.btn-danger').data('id', id);
 	});
 
-	$('#delete-modal button.btn-danger').click(function(e) {
+	$('#delete-modal button.btn-danger').on('click', function(e) {
 		var id = $(e.target).data('id');
 		emails.delete(id);
 	});
@@ -286,6 +286,8 @@ Controller.prototype = {
 
 			this.elements.address.val(address);
 			this.elements.domain.text(domain);
+
+			$('.dropdown-menu a:contains(' + domain + ')').trigger('click');
 
 			$('form').trigger('submit');
 		}
