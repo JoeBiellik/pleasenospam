@@ -119,10 +119,10 @@ function Controller(opts) {
 	this.loading = false;
 	this.currentAddress = null;
 
+	// Home page
 	if (this.getHash() == '') {
-		this.elements.spinner.addClass('hidden');
-
-		// Home page
+		// Use default email address
+		window.location.hash = $('main').data('default');
 	}
 }
 
@@ -175,16 +175,18 @@ Controller.prototype = {
 		this.elements.spinner.addClass('hidden');
 	},
 	delete: function(id) {
-		$('tr[data-id="' + id + '"]', this.elements.table).remove();
-
 		$.ajax({
 			url: '/' + id,
 			type: 'DELETE'
 		});
+
+		$('tbody tr[data-id="' + id + '"]', this.elements.table).remove();
+
+		if (!$('tbody tr', this.elements.table).length) {
+			this.clear();
+		}
 	},
 	clear: function() {
-		this.currentAddress = null;
-
 		$('tbody', this.elements.table).empty();
 
 		this.elements.table.addClass('hidden');

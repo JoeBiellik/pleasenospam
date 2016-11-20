@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  main.container.my-2
+  main(data-default=defaultAddress).container.my-2
     header#guest
       h1.display-3.float-md-left.mb-3.mr-3 #{title}
 
@@ -31,7 +31,7 @@ block content
 
     div.jumbotron.py-2.hidden
       button.btn.btn-outline-primary.mt-2.float-md-right Send me a test email
-      h1 No email yet!
+      h1 No emails yet!
       p.lead.mb-0 New emails will show up here in real-time
 
     table.table.hidden
