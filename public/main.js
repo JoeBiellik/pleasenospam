@@ -119,6 +119,10 @@ function Controller(opts) {
 	this.loading = false;
 	this.currentAddress = null;
 
+	this.favicon = new Favico({
+		animation: 'none'
+	});
+
 	// Home page
 	if (this.getHash() == '') {
 		// Use default email address
@@ -143,6 +147,8 @@ Controller.prototype = {
 			self.subscribe(emailAddress);
 
 			if (data.length) {
+				self.favicon.badge(data.length);
+
 				data.forEach(function(email) {
 					self.update(email);
 				});
@@ -160,6 +166,8 @@ Controller.prototype = {
 		var element = $(this.template(email));
 
 		$('tbody', this.elements.table).prepend(element);
+
+		this.favicon.badge($('tbody tr.body', this.elements.table).length);
 
 		$('td header', element).on('click', ' a.view-toggle', function(e) {
 			e.preventDefault();
@@ -181,6 +189,7 @@ Controller.prototype = {
 		});
 
 		$('tbody tr[data-id="' + id + '"]', this.elements.table).remove();
+		this.favicon.badge($('tbody tr.body', this.elements.table).length);
 
 		if (!$('tbody tr', this.elements.table).length) {
 			this.clear();
@@ -188,6 +197,8 @@ Controller.prototype = {
 	},
 	clear: function() {
 		$('tbody', this.elements.table).empty();
+
+		this.favicon.reset();
 
 		this.elements.table.addClass('hidden');
 		this.elements.empty.removeClass('hidden');
