@@ -2,6 +2,8 @@
 /* global $ Handlebars */
 
 $(function() {
+	Notification.requestPermission();
+
 	var emails = new Controller({
 		elements: {
 			table: $('table.table'),
@@ -195,7 +197,10 @@ Controller.prototype = {
 		var self = this;
 
 		this.sse.addEventListener('message', function(e) {
-			self.update(JSON.parse(e.data));
+			var message = JSON.parse(e.data);
+
+			self.notification(message.from[0].name || message.from[0].address || 'Unknown', message.subject);
+			self.update(message);
 		}, false);
 	},
 	unsubscribe: function() {
@@ -206,6 +211,12 @@ Controller.prototype = {
 	},
 	getHash: function() {
 		return window.location.hash.substring(1);
+	},
+	notification: function(from, subject) {
+		new Notification('New Email from ' + from, {
+			body: subject,
+			icon: '/icon.png'
+		});
 	},
 	onSubmit: function(e) {
 		e.preventDefault();
