@@ -21,14 +21,6 @@ header form .input-group-addon {
 	background-color: #fff;
 }
 
-iframe {
-	width: 100%;
-    border: none;
-	border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-}
-
-
 .table th {
 	border-top: none;
 }
@@ -36,20 +28,22 @@ iframe {
 	width: 35%;
 }
 .table thead tr th:nth-child(2) {
-	width: 40%;
+	width: 50%;
 }
 .table thead tr th:nth-child(3) {
-	width: 25%;
+	width: 15%;
 }
 
 .table-active, .table-active>td, .table-active>th {
     background-color: #d9edf7;
 }
 
-.table tbody tr td header {
-	
+iframe {
+	width: 100%;
+    border: none;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
 }
-
 
 .spinner {
 	margin: 75px auto 0;

@@ -1,5 +1,5 @@
 /* eslint-env browser */
-/* global $ Handlebars */
+/* global $ Handlebars moment */
 
 $(function() {
 	Notification.requestPermission();
@@ -100,19 +100,19 @@ function Controller(opts) {
 	Handlebars.registerHelper('mailtolink', function(email, subject = '') {
 		var address = Handlebars.escapeExpression(email.address);
 		var name = Handlebars.escapeExpression(email.name) || null;
-		var subject = Handlebars.escapeExpression(subject);
+		subject = Handlebars.escapeExpression(subject);
 
 		return new Handlebars.SafeString('mailto:' + (name ? name + ' &lt;' + address + '&gt;' : address) + '?subject=' + subject);
 	});
 
 	Handlebars.registerHelper('timestamp', function(timestamp) {
 		timestamp = Handlebars.escapeExpression(timestamp);
-		var date = new Date(timestamp).toLocaleString(); // TODO: Moment.js format
+		var date = moment(timestamp).format('Do MMMM YYYY, h:mm:ssa');
 
 		return new Handlebars.SafeString('<time datetime="' + timestamp + '" data-livestamp="' + timestamp + '" title="' + date + '"></time>');
 	});
 
-	Handlebars.registerHelper('default', function (a, b) { return a ? a : b; });
+	Handlebars.registerHelper('default', function(a, b) { return a ? a : b; });
 
 	this.template = Handlebars.compile($('script#email-template').html());
 
@@ -168,8 +168,8 @@ Controller.prototype = {
 
 			$('td header a.view-toggle', element).removeClass('hidden');
 			$(this).addClass('hidden');
-		})
-		
+		});
+
 		this.elements.table.removeClass('hidden');
 		this.elements.empty.addClass('hidden');
 		this.elements.spinner.addClass('hidden');
