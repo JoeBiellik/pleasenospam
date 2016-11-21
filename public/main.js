@@ -38,7 +38,7 @@ $(function() {
 	});
 
 	$('form').on('submit', emails.onSubmit.bind(emails));
-	$('button.btn-outline-primary').on('click', emails.onTestClick.bind(emails));
+	$('button#test').on('click', emails.onTestClick.bind(emails));
 	$(window).on('hashchange', emails.onHashChange.bind(emails));
 
 	$(window).trigger('hashchange');
@@ -94,7 +94,7 @@ function Controller(opts) {
 		var address = Handlebars.escapeExpression(email.address);
 		var name = Handlebars.escapeExpression(email.name) || null;
 
-		return new Handlebars.SafeString('<a href="mailto:' + address + '" target="_blank">' + (name ? name + ' &lt;' + address + '&gt;' : address) + '</a>');
+		return new Handlebars.SafeString('<a href="mailto:' + address + '" target="_blank">' + (name ? name + ' <small>&lt;' + address + '&gt;</small>' : address) + '</a>');
 	});
 
 	Handlebars.registerHelper('mailtolink', function(email, subject = '') {
@@ -121,6 +121,26 @@ function Controller(opts) {
 
 	this.favicon = new Favico({
 		animation: 'none'
+	});
+
+	$('[data-toggle="tooltip"]').tooltip();
+
+	var self = this;
+
+	this.clipboard = new Clipboard('#clipboard', {
+		text: function() {
+			return self.elements.address.val() + '@' + self.elements.domain.text();
+		}
+	});
+
+	this.clipboard.on('success', function(e) {
+		var target = $(e.trigger);
+
+		target.tooltip('show');
+
+		setTimeout(function() {
+			target.tooltip('hide');
+		}, 3000);
 	});
 
 	// Home page
