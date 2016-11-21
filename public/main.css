@@ -6,9 +6,13 @@ body {
 	display: none !important;
 }
 
+header h1.display-3 {
+	margin-top: 0.5rem;
+	font-size: 4rem;
+}
 header form {
-	max-width: 500px;
-	margin-top: 1.8rem;
+	max-width: 550px;
+	margin-top: 2rem;
 }
 header form .input-group-addon {
 	border-left: none;
@@ -16,7 +20,6 @@ header form .input-group-addon {
 header form .input-group-btn .dropdown-toggle {
 	 border-radius: 0;
 }
-
 header form .input-group-addon {
 	background-color: #fff;
 }
@@ -40,6 +43,7 @@ header form .input-group-addon {
 
 iframe {
 	width: 100%;
+	height: 0;
     border: none;
 	border-top: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
