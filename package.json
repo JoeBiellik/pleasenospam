@@ -38,7 +38,7 @@
     "koa-router": "^5.2.3",
     "koa-static-cache": "^3.1.2",
     "koa-views": "^4.1.0",
-    "mailcomposer": "^3.7.0",
+    "mailcomposer": "^4.0.0",
     "mailparser": "^0.6.1",
     "overwrite": "^1.0.3",
     "sanitizer": "0.1.3",
