@@ -29,7 +29,7 @@
     "babel-polyfill": "^6.1.19",
     "babel-preset-es2015": "^6.1.18",
     "config": "^1.16.0",
-    "html-to-text": "^2.1.3",
+    "html-to-text": "^3.0.0",
     "inline-css": "^2.2.2",
     "jade": "^1.11.0",
     "koa": "^1.1.0",
