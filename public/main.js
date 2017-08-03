@@ -1,5 +1,5 @@
 /* eslint-env browser */
-/* global $ Handlebars moment */
+/* global $ Handlebars moment Clipboard Favico */
 
 $(function() {
 	Notification.requestPermission();

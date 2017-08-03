@@ -11,7 +11,8 @@
   "mail": {
     "hostname": "pleasenospam.email",
     "domains": [
-      "pleasenospam.email"
+      "pleasenospam.email",
+      "spamlessmail.org"
     ]
   }
 }

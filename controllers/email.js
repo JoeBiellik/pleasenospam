@@ -1,82 +1,82 @@
-var config = require('config');
-var SMTPConnection = require('smtp-connection');
-var mailcomposer = require('mailcomposer');
-var db = require('../db')();
-var Emails = require('../models/email');
+const config = require('config');
+const SMTPConnection = require('smtp-connection');
+const mailcomposer = require('mailcomposer');
+const db = require('../db')();
+const Emails = require('../models/email');
 
 module.exports = {
-	*get() {
-		let [address, domain] = this.params.email.split('@');
-		let validator = new RegExp(/^([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|"([]!#-[^-~ \t]|(\\[\t -~]))+")$/);
+	async get(ctx) {
+		const [address, domain] = ctx.params.email.split('@');
+		const validator = new RegExp(/^([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|"(\[\]!#-[^-~ \t]|(\\[\t -~]))+")$/);
 
 		if (!address.match(validator)) {
-			this.throw('Invalid email address', 400);
+			ctx.throw('Invalid email address', 400);
 		}
 
 		if (!config.mail.domains.includes(domain)) {
-			this.throw('Invalid email domain', 400);
+			ctx.throw('Invalid email domain', 400);
 		}
 
 		try {
-			let emails = yield Emails.filter((email) => {
+			const emails = await Emails.filter((email) => {
 				return email('to').contains((to) => {
-					return to('address').eq(this.params.email);
+					return to('address').eq(ctx.params.email);
 				});
 			}).orderBy(db.r.asc('date'));
 
-			this.body = emails;
+			ctx.body = emails;
 		} catch (ex) {
-			this.throw('Email not found', 404);
+			ctx.throw('Email not found', 404);
 		}
 	},
 
-	*raw() {
+	async raw(ctx) {
 		try {
-			let email = yield Emails.get(this.params.id).run();
+			const email = await Emails.get(ctx.params.id).run();
 
-			this.type = 'text/plain; charset=utf-8';
-			this.body = email.original || '';
+			ctx.type = 'text/plain; charset=utf-8';
+			ctx.body = email.original || '';
 		} catch (ex) {
-			this.throw('Email not found', 404);
+			ctx.throw('Email not found', 404);
 		}
 	},
 
-	*html() {
+	async html(ctx) {
 		try {
-			let email = yield Emails.get(this.params.id).run();
+			const email = await Emails.get(ctx.params.id).run();
 
-			this.type = 'text/html; charset=utf-8';
-			this.body = email.html || '';
-			this.set('X-Frame-Options', 'SAMEORIGIN');
+			ctx.type = 'text/html; charset=utf-8';
+			ctx.body = email.html || '';
+			ctx.set('X-Frame-Options', 'SAMEORIGIN');
 		} catch (ex) {
-			this.throw('Email not found', 404);
+			ctx.throw('Email not found', 404);
 		}
 	},
 
-	*text() {
+	async text(ctx) {
 		try {
-			let email = yield Emails.get(this.params.id).run();
+			const email = await Emails.get(ctx.params.id).run();
 
-			this.type = 'text/plain; charset=utf-8';
-			this.body = email.text || '';
-			this.set('X-Frame-Options', 'SAMEORIGIN');
+			ctx.type = 'text/plain; charset=utf-8';
+			ctx.body = email.text || '';
+			ctx.set('X-Frame-Options', 'SAMEORIGIN');
 		} catch (ex) {
-			this.throw('Email not found', 404);
+			ctx.throw('Email not found', 404);
 		}
 	},
 
-	*delete() {
+	async delete(ctx) {
 		try {
-			yield Emails.get(this.params.id).delete();
+			await Emails.get(ctx.params.id).delete();
 
-			this.status = 204;
+			ctx.status = 204;
 		} catch (ex) {
-			this.throw('Email not found', 404);
+			ctx.throw('Email not found', 404);
 		}
 	},
 
-	*test() {
-		let connection = new SMTPConnection({
+	test(ctx) {
+		const connection = new SMTPConnection({
 			host: config.app.mail.host,
 			port: config.app.mail.port,
 			name: config.mail.hostname,
@@ -88,7 +88,7 @@ module.exports = {
 		connection.connect(() => {
 			let envelope = {
 				from: 'mailbot@' + config.mail.domains[0],
-				to: this.params.email
+				to: ctx.params.email
 			};
 
 			let mail = mailcomposer({
@@ -108,6 +108,6 @@ module.exports = {
 			});
 		});
 
-		this.status = 204;
+		ctx.status = 204;
 	}
 };

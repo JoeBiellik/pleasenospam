@@ -1,27 +1,27 @@
-var emailStream = require('../lib/email-stream');
-var sseTransform = require('../lib/sse-transform');
+const emailStream = require('../lib/email-stream');
+const sseTransform = require('../lib/sse-transform');
 
 module.exports = {
-	*subscribe() {
-		this.compress = false;
-		this.req.setTimeout(Number.MAX_VALUE);
-		this.type = 'text/event-stream; charset=utf-8';
-		this.set('Cache-Control', 'no-cache');
-		this.set('Connection', 'keep-alive');
-		this.set('Transfer-Encoding', 'chunked');
+	subscribe(ctx) {
+		ctx.compress = false;
+		ctx.req.setTimeout(Number.MAX_VALUE);
+		ctx.type = 'text/event-stream; charset=utf-8';
+		ctx.set('Cache-Control', 'no-cache');
+		ctx.set('Connection', 'keep-alive');
+		ctx.set('Transfer-Encoding', 'chunked');
 
-		var socket = this.socket;
+		const socket = ctx.socket;
 		socket.on('error', close);
 		socket.on('close', close);
 
-		var body = this.body = sseTransform();
-		var stream = emailStream({
-			email: this.params.email
+		const body = ctx.body = sseTransform();
+		const stream = emailStream({
+			email: ctx.params.email
 		});
 		stream.pipe(body);
 
 		function close() {
-			stream.unpipe(this.body);
+			stream.unpipe(ctx.body);
 			socket.removeListener('error', close);
 			socket.removeListener('close', close);
 		}

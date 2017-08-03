@@ -1,0 +1,60 @@
+extends layout
+
+block content
+  a(href='https://github.com/JoeBiellik/pleasenospam', style='position: absolute; top: 0; right: 0; border: 0;')
+    img(src='https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png', alt='Fork me on GitHub')
+
+
+  main(data-default=defaultAddress).container.py-4
+    header#guest
+      h1.display-3.float-md-left.mb-5.mr-3 #{title}
+
+      form.input-group.float-md-right
+        input.form-control.text-md-right#address(type='text', pattern="[a-z0-9!#$%&'*+/=?^_`{|}~.-]{1,64}", title='Valid email address', required, autofocus)
+        span.input-group-addon @
+        div.input-group-btn
+          button.btn.btn-secondary.dropdown-toggle#domain(data-toggle='dropdown') #{domains[0]}
+          div.dropdown-menu.dropdown-menu-right
+            each domain in domains
+              a.dropdown-item(href='#') #{domain}
+          button.btn.btn-success Go
+          button(type='button', data-toggle='tooltip', data-placement='right', data-trigger='manual', title='Copied')#clipboard.btn.btn-secondary
+            i.fa.fa-clipboard
+
+    div.py-4.clearfix
+
+    div.spinner
+      div.bounce1
+      div.bounce2
+      div.bounce3
+
+    div.alert.alert-danger.hidden
+      h4.alert-heading Something has gone wrong!
+      p.mb-0 Please check you entered a valid email address or try #[a(href='/').alert-link reloading the page]
+
+    div.jumbotron.py-4.hidden
+      button#test.btn.btn-outline-primary.mt-4.float-md-right Send me a test email
+      h1 No emails yet!
+      p.lead.mb-0 New emails will show up here in real-time
+
+    table.table.hidden
+      thead
+        tr
+          th From
+          th Subject
+          th
+      tbody
+
+  include elements/email
+
+  include modals/delete
+
+  script(src='https://code.jquery.com/jquery-3.2.1.min.js', integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=', crossorigin='anonymous')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js', integrity='sha256-0JaDbGZRXlzkFbV8Xi8ZhH/zZ6QQM0Y3dCkYZ7JYq34=', crossorigin='anonymous')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js', integrity='sha256-1hjUhpc44NwiNg8OwMu2QzJXhD8kcj+sJA3aCQZoUjg=', crossorigin='anonymous')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/livestamp/1.1.2/livestamp.min.js', integrity='sha256-8r65KJgULBDiZhwDydfWrEkx3yyV/grGsGzaekobngI=', crossorigin='anonymous')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js', integrity='sha256-gL1ibrbVcRIHKlCO5OXOPC/lZz/gpdApgQAzskqqXp8=', crossorigin='anonymous')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js', integrity='sha256-+kIbbrvS+0dNOjhmQJzmwe/RILR/8lb/+4+PUNVW09k=', crossorigin='anonymous')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/favico.js/0.3.10/favico.min.js', integrity='sha256-i265HmNQ6FYdanwd4Tvt6Phby2Ht/9KOGQ3cromZq5Y=', crossorigin='anonymous')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js', integrity='sha256-Daf8GuI2eLKHJlOWLRR/zRy9Clqcj4TUSumbxYH9kGI=', crossorigin='anonymous')
+  script(src='/main.js')

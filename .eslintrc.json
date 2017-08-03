@@ -1,10 +1,11 @@
 {
   "env": {
-    "node": true,
-    "es6": true
+    "node": true
+  },
+  "parserOptions": {
+      "ecmaVersion": 8
   },
   "extends": ["eslint:recommended"],
-  "parser": "babel-eslint",
   "rules": {
     "indent": ["error", "tab"],
     "quotes": ["error", "single", "avoid-escape"],

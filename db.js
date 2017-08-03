@@ -1,6 +1,6 @@
-var config = require('config');
+const config = require('config');
 
-var thinky = require('thinky')({
+const thinky = require('thinky')({
 	host: config.db.host,
 	port: config.db.port,
 	db: config.db.db

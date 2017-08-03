@@ -2,15 +2,15 @@ script#email-template(type='text/x-handlebars-template')
   tr.header(data-id='{{id}}')
     td {{mailto from.[0]}}
     td {{subject}}
-    td {{timestamp createdAt}}
+    td {{timestamp receivedDate}}
   tr.body.hidden(data-id='{{id}}')
     td(colspan='4').p-0
-      header.p-1
+      header.p-3
         a(href='{{mailtolink from.[0] subject}}', target='_blank').btn.btn-secondary.btn-sm
           i.fa.fa-reply
           |  Reply
 
-        div.btn-group.mx-1
+        div.btn-group.mx-3
           a(href='/{{id}}.html', target='_blank').view-toggle.btn.btn-secondary.btn-sm.hidden
             i.fa.fa-envelope
             |  View HTML
@@ -21,7 +21,7 @@ script#email-template(type='text/x-handlebars-template')
             i.fa.fa-eye
             |  View Original
 
-        button(data-toggle='modal', data-target='#delete-modal' data-id='{{id}}').btn.btn-danger.btn-sm.float-xs-right
+        button(data-toggle='modal', data-target='#delete-modal' data-id='{{id}}').btn.btn-danger.btn-sm.pull-right
           i.fa.fa-trash
           |  Delete
 
