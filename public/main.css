@@ -2,6 +2,10 @@ body, button, input, optgroup, select, textarea {
 	font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
 }
 
+button, .btn, .table tbody tr.header {
+	cursor: pointer;	
+}
+
 .hidden {
 	display: none !important;
 }
