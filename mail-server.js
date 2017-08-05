@@ -9,7 +9,7 @@ const server = new SMTPServer({
 	name: config.mail.hostname,
 	banner: config.mail.banner,
 	secure: false,
-	disabledCommands: ['AUTH'],
+	disabledCommands: ['AUTH', 'STARTTLS'],
 	onRcptTo: (address, session, callback) => {
 		// Only accept whitelisted recipient address domains
 		for (const domain of config.mail.domains) {
