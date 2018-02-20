@@ -196,6 +196,8 @@ Controller.prototype = {
 
 			$('td header a.view-toggle', element).removeClass('hidden');
 			$(this).addClass('hidden');
+
+			$('td header a#download', element).attr('href', $(this).attr('href') + '?download');
 		});
 
 		this.elements.table.removeClass('hidden');

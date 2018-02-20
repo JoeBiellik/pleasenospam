@@ -34,6 +34,7 @@ module.exports = {
 		try {
 			const email = await Emails.get(ctx.params.id).run();
 
+			if ('download' in ctx.query) ctx.attachment('email-' + ctx.params.id + '-raw.txt');
 			ctx.type = 'text/plain; charset=utf-8';
 			ctx.body = email.original || '';
 		} catch (ex) {
@@ -45,6 +46,7 @@ module.exports = {
 		try {
 			const email = await Emails.get(ctx.params.id).run();
 
+			if ('download' in ctx.query) ctx.attachment('email-' + ctx.params.id + '.html');
 			ctx.type = 'text/html; charset=utf-8';
 			ctx.body = email.html || '';
 			ctx.set('X-Frame-Options', 'SAMEORIGIN');
@@ -57,6 +59,7 @@ module.exports = {
 		try {
 			const email = await Emails.get(ctx.params.id).run();
 
+			if ('download' in ctx.query) ctx.attachment('email-' + ctx.params.id + '.txt');
 			ctx.type = 'text/plain; charset=utf-8';
 			ctx.body = email.text || '';
 			ctx.set('X-Frame-Options', 'SAMEORIGIN');
