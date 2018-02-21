@@ -26,7 +26,7 @@ The app consists of two parts: a web frontend for viewing stored mail and a SMTP
   docker-compose run --rm --no-deps app npm install
   ```
 
-3. Start MongoDB:
+3. Start RethinkDB:
   ```sh
   docker-compose up -d db
   ```
