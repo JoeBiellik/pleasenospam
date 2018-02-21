@@ -14,3 +14,41 @@ The app consists of two parts: a web frontend for viewing stored mail and a SMTP
 * Live email alerts using [browser web notifications](https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API) and [favico.js](http://lab.ejci.net/favico.js/).
 * Full HTML email support sanitized with [Google Caja](https://developers.google.com/caja/).
 * Multiple domain support.
+
+## Development
+1. Clone this repo:
+  ```sh
+  git clone https://github.com/JoeBiellik/pleasenospam.git && cd pleasenospam
+  ```
+
+2. Install dependencies:
+  ```sh
+  docker-compose run --rm --no-deps app npm install
+  ```
+
+3. Start MongoDB:
+  ```sh
+  docker-compose up -d db
+  ```
+
+4. Start the mail server:
+  ```sh
+  docker-compose up -d mail
+  ```
+
+5. Start the frontend and watch for code changes:
+  ```sh
+  docker-compose run app npm run watch
+  ```
+
+## Deployment
+1. Follow the first two development steps.
+
+2. Configure `config/docker.json` with any custom setting overrides
+
+3. Configure `docker-compose.yml` with Docker options and ports to use
+
+4. Start the frontend, database and mail server:
+  ```sh
+  docker-compose up
+  ```
