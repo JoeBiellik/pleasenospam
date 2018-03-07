@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "config": "^1.29.4",
-    "html-to-text": "^3.3.0",
+    "html-to-text": "^4.0.0",
     "inline-css": "^2.2.4",
     "koa": "^2.5.0",
     "koa-compress": "^2.0.0",
