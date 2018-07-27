@@ -25,7 +25,7 @@
     "lint": "eslint . && pug-lint ./views"
   },
   "dependencies": {
-    "config": "^1.29.4",
+    "config": "^2.0.0",
     "html-to-text": "^3.3.0",
     "inline-css": "^2.2.4",
     "koa": "^2.5.0",
