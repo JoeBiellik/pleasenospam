@@ -1,6 +1,6 @@
 {
   "name": "pleasenospam",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Temporary email service",
   "license": "MIT",
   "repository": "JoeBiellik/pleasenospam",
@@ -25,11 +25,11 @@
     "lint": "eslint . && pug-lint ./views"
   },
   "dependencies": {
-    "config": "^1.29.4",
-    "html-to-text": "^3.3.0",
+    "config": "^3.0.0",
+    "html-to-text": "^4.0.0",
     "inline-css": "^2.2.4",
     "koa": "^2.5.0",
-    "koa-compress": "^2.0.0",
+    "koa-compress": "^3.0.0",
     "koa-logger": "^3.1.0",
     "koa-router": "^7.4.0",
     "koa-static-cache": "^5.1.2",
@@ -45,7 +45,7 @@
     "thinky": "^2.3.9"
   },
   "devDependencies": {
-    "eslint": "^4.18.0",
+    "eslint": "^5.9.0",
     "nodemon": "^1.15.1",
     "pug-lint": "^2.5.0"
   }
