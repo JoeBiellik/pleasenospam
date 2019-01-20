@@ -12,8 +12,6 @@ services:
      - pleasenospam-db
     environment:
      - NODE_ENV=docker
-    volumes:
-     - pleasenospam-app:/usr/src/app
     ports:
      - "3000:80"
   pleasenospam-mail-server:
@@ -37,12 +35,6 @@ services:
     container_name: pleasenospam-db
     volumes:
      - pleasenospam-db:/data
-    expose:
-     - 28015
-    ports:
-     - "8080"
-     - "28015"
-     - "28016"
 
 volumes:
   pleasenospam-db:
