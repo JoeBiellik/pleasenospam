@@ -23,32 +23,28 @@ The app consists of two parts: a web frontend for viewing stored mail and a SMTP
 
 2. Install dependencies:
   ```sh
-  docker-compose run --rm --no-deps app npm install
+  docker-compose run --rm --no-deps pleasenospam-app npm install
   ```
 
 3. Start RethinkDB:
   ```sh
-  docker-compose up -d db
+  docker-compose up -d pleasenospam-db
   ```
 
 4. Start the mail server:
   ```sh
-  docker-compose up -d mail
+  docker-compose up -d pleasenospam-mail-server
   ```
 
 5. Start the frontend and watch for code changes:
   ```sh
-  docker-compose run app npm run watch
+  docker-compose run pleasenospam-app npm run watch
   ```
 
 ## Deployment
-1. Follow the first two development steps.
+1. Configure `docker-compose.yml` with Docker options and ports to use
 
-2. Configure `config/docker.json` with any custom setting overrides
-
-3. Configure `docker-compose.yml` with Docker options and ports to use
-
-4. Start the frontend, database and mail server:
+2. Start the frontend, database and mail server:
   ```sh
-  docker-compose up
+  docker-compose up --build
   ```
