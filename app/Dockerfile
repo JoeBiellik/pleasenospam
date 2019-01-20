@@ -13,6 +13,6 @@ COPY app.js db.js router.js server.js /usr/src/app/
 
 RUN cd /usr/src/app && npm install --only=production
 
-EXPOSE 3000
+EXPOSE 80
 
 CMD [ "npm", "start" ]
