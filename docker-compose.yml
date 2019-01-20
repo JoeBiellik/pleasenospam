@@ -1,39 +1,48 @@
-version: '2'
+version: '3'
 services:
-  app:
-    image: node:latest
-    command: "npm start"
-    working_dir: /app
-    links:
-     - mail
-     - db
+  pleasenospam-app:
+    image: joebiellik/pleasenospam:1.0.0-app
+    restart: always
+    container_name: pleasenospam-app
+    build:
+      context: ./
+      dockerfile: ./app/Dockerfile
+    depends_on:
+     - pleasenospam-mail-server
+     - pleasenospam-db
     environment:
      - NODE_ENV=docker
     volumes:
-     - .:/app
+     - pleasenospam-app:/usr/src/app
     ports:
      - "3000:80"
-  mail:
-    image: node:latest
-    command: "npm run mail-server"
-    working_dir: /app
-    links:
-     - db
+  pleasenospam-mail-server:
+    image: joebiellik/pleasenospam:1.0.0-mail-server
+    restart: always
+    container_name: pleasenospam-mail-server
+    build:
+      context: ./
+      dockerfile: ./mail-server/Dockerfile
+    depends_on:
+      - pleasenospam-db
     environment:
      - NODE_ENV=docker
-    volumes:
-     - .:/app
     expose:
      - 25
     ports:
      - "2525:25"
-  db:
+  pleasenospam-db:
     image: rethinkdb:latest
+    restart: always
+    container_name: pleasenospam-db
     volumes:
-     - ./db:/data
+     - pleasenospam-db:/data
     expose:
      - 28015
     ports:
-     - "8080:8080"
-     - "28015:28015"
-     - "28016:28016"
+     - "8080"
+     - "28015"
+     - "28016"
+
+volumes:
+  pleasenospam-db:

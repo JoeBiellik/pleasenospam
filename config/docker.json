@@ -2,11 +2,11 @@
   "app": {
     "port": 80,
     "mail": {
-      "host": "mail"
+      "host": "pleasenospam-mail-server"
     }
   },
   "db": {
-    "host": "db"
+    "host": "pleasenospam-db"
   },
   "mail": {
     "hostname": "pleasenospam.email",
