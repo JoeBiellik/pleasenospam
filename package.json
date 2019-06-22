@@ -45,7 +45,7 @@
     "thinky": "^2.3.9"
   },
   "devDependencies": {
-    "eslint": "^5.9.0",
+    "eslint": "^6.0.0",
     "nodemon": "^1.15.1",
     "pug-lint": "^2.5.0"
   }
