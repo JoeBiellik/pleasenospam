@@ -8,7 +8,7 @@ router.get('/', async(ctx) => {
 	await ctx.render('index', {
 		pretty: config.app.prettyHtml,
 		title: 'please, no spam',
-		defaultAddress: generateName().replace(' ', '-').toLowerCase() + '@' + config.mail.domains[Math.floor(Math.random() * config.mail.domains.length)],
+		defaultAddress: generateName.randomAdjective().toLowerCase() + '-' + generateName.randomNoun() + '@' + config.mail.domains[Math.floor(Math.random() * config.mail.domains.length)],
 		domains: config.mail.domains
 	});
 });
