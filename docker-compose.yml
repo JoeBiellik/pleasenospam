@@ -1,39 +1,38 @@
-version: '2'
+version: "2"
 services:
   app:
     image: node:latest
     command: "npm start"
     working_dir: /app
     links:
-     - mail
-     - db
+      - mail
+      - db
     environment:
-     - NODE_ENV=docker
+      - NODE_ENV=docker
     volumes:
-     - .:/app
+      - .:/app
     ports:
-     - "3000:80"
+      - "80:80"
   mail:
     image: node:latest
     command: "npm run mail-server"
     working_dir: /app
     links:
-     - db
+      - db
     environment:
-     - NODE_ENV=docker
+      - NODE_ENV=docker
     volumes:
-     - .:/app
+      - .:/app
     expose:
-     - 25
+      - 25
     ports:
-     - "2525:25"
+      - "25:25"
   db:
     image: rethinkdb:latest
     volumes:
-     - ./db:/data
+      - ./db:/data
     expose:
-     - 28015
+      - 28015
     ports:
-     - "8080:8080"
-     - "28015:28015"
-     - "28016:28016"
+      - "8080:8080"
+      - "28015:28015"
