@@ -54,14 +54,7 @@ $(function() {
 
 		if (body.hasClass('hidden') && !iframe.attr('src')) {
 			iframe.off('load').on('load', function() {
-				$(this).height(0); // Needed or the iframe won't shrink
-
-				$(this).height($(this).contents().outerHeight());
-
-				// Allow for scrollbar if visible
-				if ((window.innerWidth - $(window).width()) > 0) {
-					$(this).height($(this).height() + (window.innerWidth - $(window).width()));
-				}
+				$(this).height($(this).contents().find('html').outerHeight(true));
 			});
 
 			iframe.attr('src', '/' + id + '.html');
