@@ -1,8 +1,8 @@
 /* eslint-env browser */
-/* global $ Handlebars moment Clipboard Favico */
+/* global $ Handlebars moment ClipboardJS Favico */
 
 $(function() {
-	Notification.requestPermission();
+	window.isSecureContext && Notification.requestPermission();
 
 	var emails = new Controller({
 		elements: {
@@ -127,7 +127,7 @@ function Controller(opts) {
 
 	var self = this;
 
-	this.clipboard = new Clipboard('#clipboard', {
+	this.clipboard = new ClipboardJS('#clipboard', {
 		text: function() {
 			return self.elements.address.val() + '@' + self.elements.domain.text();
 		}
