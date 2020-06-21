@@ -1,18 +1,24 @@
 {
   "app": {
-    "port": 80,
-    "mail": {
+    "keys": [
+      "random key here"
+    ],
+
+    "smtp": {
       "host": "mail"
     }
   },
-  "db": {
-    "host": "db"
-  },
+
   "mail": {
     "hostname": "pleasenospam.email",
+
     "domains": [
       "pleasenospam.email",
       "spamlessmail.org"
     ]
+  },
+
+  "db": {
+    "host": "db"
   }
 }

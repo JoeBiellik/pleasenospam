@@ -3,32 +3,39 @@ services:
   app:
     image: node:latest
     command: "npm start"
+    restart: unless-stopped
     working_dir: /app
     links:
       - mail
       - db
     environment:
-      - NODE_ENV=docker
+      - NODE_ENV=production
+      - NODE_CONFIG_ENV=docker
     volumes:
       - .:/app
     ports:
-      - "80:80"
+      - "3001:80"
+
   mail:
     image: node:latest
     command: "npm run mail-server"
+    restart: unless-stopped
     working_dir: /app
     links:
       - db
     environment:
-      - NODE_ENV=docker
+      - NODE_ENV=production
+      - NODE_CONFIG_ENV=docker
     volumes:
       - .:/app
     expose:
       - 25
     ports:
       - "25:25"
+
   db:
     image: rethinkdb:latest
+    restart: unless-stopped
     volumes:
       - ./db:/data
     expose:

@@ -1,30 +1,57 @@
 {
+  // App server
   "app": {
-    "port": 3000,
-    "cacheAge": 86400,
+    // Listening address
+    "host": "0.0.0.0",
+    "port": 80,
+
+    // Host options
+    "title": "please, no spam",
     "prettyHtml": true,
+    "cacheAge": 86400, // Static file cache lifetime
     "keys": [
-      "sfduioh38hfihq2h4308hrqhpwsfnwd08q34yhe012hn",
-      "890awhodn3094ncqa092o2h3e08dhaosh3892he0adhq"
+      "random key here"
     ],
-    "mail": {
+
+    // Test email options
+    "test": {
+      "fromAddress": "mailbot",
+      "fromName": "Mr Mailbot",
+      "subject": "Your test email is here!",
+      "message": "Hello World!\n\nNow go try with a real email!"
+    },
+
+    // SMTP server for sending test emails
+    "smtp": {
+      // Contact address
       "host": "localhost",
       "port": 25
     }
   },
-  "db": {
-    "db": "email",
-    "host": "db",
-    "port": 28015
-  },
+
+  // Mail server
   "mail": {
+    // Listening address
     "host": "0.0.0.0",
     "port": 25,
-    "hostname": "pleasenospam",
+
+    // SMTP options
+    "hostname": "pleasenospam.local",
     "banner": "Hi can I have some mail please?",
+
+    // Accepted recipient address domains
     "domains": [
       "localhost",
-      "pleasenospam.email"
+      "pleasenospam.local"
     ]
+  },
+
+  // RethinkDB server
+  "db": {
+    // Contact address
+    "host": "localhost",
+    "port": 28015,
+
+    "database": "pleasenospam"
   }
 }

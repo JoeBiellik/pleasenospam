@@ -1,7 +1,6 @@
 const config = require('config');
 const SMTPConnection = require('smtp-connection');
 const mailcomposer = require('mailcomposer');
-const db = require('../db')();
 const Emails = require('../models/email');
 
 module.exports = {
@@ -22,7 +21,7 @@ module.exports = {
 				return email('to').contains((to) => {
 					return to('address').eq(ctx.params.email);
 				});
-			}).orderBy(db.r.asc('date'));
+			}).orderBy('date');
 
 			ctx.body = emails;
 		} catch (ex) {
@@ -80,8 +79,8 @@ module.exports = {
 
 	test(ctx) {
 		const connection = new SMTPConnection({
-			host: config.app.mail.host,
-			port: config.app.mail.port,
+			host: config.app.smtp.host,
+			port: config.app.smtp.port,
 			name: config.mail.hostname,
 			secure: false,
 			ignoreTLS: true,
@@ -90,15 +89,15 @@ module.exports = {
 
 		connection.connect(() => {
 			let envelope = {
-				from: 'mailbot@' + config.mail.domains[0],
+				from: config.app.test.fromAddress + '@' + config.mail.domains[0],
 				to: ctx.params.email
 			};
 
 			let mail = mailcomposer({
-				from: '"Mr Mailbot" <' + envelope.from + '>',
+				from: '"' + config.app.test.fromName + '" <' + envelope.from + '>',
 				to: envelope.to,
-				subject: 'Your test email is here!',
-				text: 'Hello World!\n\nNow go try with a real email!'
+				subject: config.app.test.subject,
+				text: config.app.test.message
 			});
 
 			connection.send(envelope, mail.createReadStream(), (error) => {
