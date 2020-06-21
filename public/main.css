@@ -1,5 +1,5 @@
 body, button, input {
-	font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+	font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .hidden {
@@ -19,11 +19,6 @@ header h1.display-3 {
 		font-size: 3.5rem;
 	}
 }
-/* @media (min-width: 992px) {
-	header h1.display-3 {
-		font-size: 3.5rem;
-	}
-} */
 @media (min-width: 1200px) {
 	header h1.display-3 {
 		font-size: 4rem;
@@ -43,12 +38,15 @@ header button.btn.btn-outline-gray {
 }
 .table thead tr th:nth-child(1) {
 	width: 35%;
+	min-width: 250px;
 }
 .table thead tr th:nth-child(2) {
 	width: 50%;
+	min-width: 220px;
 }
 .table thead tr th:nth-child(3) {
 	width: 15%;
+	min-width: 120px;
 }
 .table tbody tr.header:hover, .table-active, .table-active > td, .table-active > th {
 	background-color: #d9edf7;
