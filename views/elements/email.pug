@@ -1,31 +1,31 @@
 script#email-template(type='text/x-handlebars-template')
-  tr.header(data-id='{{id}}')
+  tr.header(data-id='{{id}}', role='button')
     td {{mailto from.[0]}}
     td {{subject}}
     td {{timestamp receivedDate}}
   tr.body.hidden(data-id='{{id}}')
-    td(colspan='4').p-0
+    td.p-0(colspan='4')
       header.p-3
-        a(href='{{mailtolink from.[0] subject}}', target='_blank').btn.btn-secondary.btn-sm
+        a.btn.btn-outline-gray.btn-sm(href='{{mailtolink from.[0] subject}}', target='_blank')
           i.fa.fa-reply
           |  Reply
 
         div.btn-group.mx-3
-          a(href='/{{id}}.html', target='_blank').view-toggle.btn.btn-secondary.btn-sm.hidden
+          a.view-toggle.btn.btn-outline-gray.btn-sm.hidden(href='/{{id}}.html', target='_blank')
             i.fa.fa-envelope
             |  View HTML
-          a(href='/{{id}}.txt', target='_blank').view-toggle.btn.btn-secondary.btn-sm
+          a.view-toggle.btn.btn-outline-gray.btn-sm(href='/{{id}}.txt', target='_blank')
             i.fa.fa-envelope-o
             |  View Plain Text
-          a(href='/{{id}}.raw', target='_blank').view-toggle.btn.btn-secondary.btn-sm
+          a.view-toggle.btn.btn-outline-gray.btn-sm(href='/{{id}}.raw', target='_blank')
             i.fa.fa-eye
             |  View Original
 
-        a#download(href='/{{id}}.html?download', target='_blank').btn.btn-secondary.btn-sm
+        a#download.btn.btn-outline-gray.btn-sm(href='/{{id}}.html?download', target='_blank')
           i.fa.fa-download
           |  Download
 
-        button(data-toggle='modal', data-target='#delete-modal' data-id='{{id}}').btn.btn-danger.btn-sm.pull-right
+        button.btn.btn-danger.btn-sm.pull-right(data-toggle='modal', data-target='#delete-modal' data-id='{{id}}')
           i.fa.fa-trash
           |  Delete
 

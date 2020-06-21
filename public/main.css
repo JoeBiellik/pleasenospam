@@ -1,9 +1,5 @@
-body, button, input, optgroup, select, textarea {
-	font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
-}
-
-button, .btn, .table tbody tr.header {
-	cursor: pointer;
+body, button, input {
+	font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
 }
 
 .hidden {
@@ -11,23 +7,34 @@ button, .btn, .table tbody tr.header {
 }
 
 header h1.display-3 {
-	margin-top: 0.5rem;
-	font-size: 4rem;
+	font-size: 2.5rem;
 }
-header form {
-	max-width: 550px;
-	margin-top: 2rem;
+@media (min-width: 576px) {
+	header h1.display-3 {
+		font-size: 3rem;
+	}
 }
-header form .input-group-addon {
-	border-left: none;
+@media (min-width: 768px) {
+	header h1.display-3 {
+		font-size: 3.5rem;
+	}
 }
-header form .input-group-btn {
-	flex-direction: row;
+/* @media (min-width: 992px) {
+	header h1.display-3 {
+		font-size: 3.5rem;
+	}
+} */
+@media (min-width: 1200px) {
+	header h1.display-3 {
+		font-size: 4rem;
+	}
 }
-header form .input-group-btn .dropdown-toggle {
-	border-radius: 0;
+
+header .input-group-text {
+	background-color: #fff;
 }
-header form .input-group-addon {
+header button.btn.btn-outline-gray {
+	border-color: #ced4da;
 	background-color: #fff;
 }
 
@@ -43,21 +50,24 @@ header form .input-group-addon {
 .table thead tr th:nth-child(3) {
 	width: 15%;
 }
-
-.table tbody tr.header:hover {
+.table tbody tr.header:hover, .table-active, .table-active > td, .table-active > th {
 	background-color: #d9edf7;
 }
 
-.table-active, .table-active>td, .table-active>th {
-	background-color: #d9edf7;
+a.btn.btn-outline-gray {
+	border: 1px solid #ced4da;
+	background-color: #fff;
+}
+a.btn.btn-outline-gray:hover {
+    border-color: #adadad;
+    background-color: #e6e6e6;
 }
 
 iframe {
 	width: 100%;
 	height: 0;
 	border: none;
-	border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #dee2e6;
 }
 
 .spinner {
@@ -84,8 +94,8 @@ iframe {
 }
 
 @-webkit-keyframes sk-bouncedelay {
-	0%, 80%, 100% { -webkit-transform: scale(0) }
-	40% { -webkit-transform: scale(1.0) }
+	0%, 80%, 100% { -webkit-transform: scale(0); }
+	40% { -webkit-transform: scale(1); }
 }
 @keyframes sk-bouncedelay {
 	0%, 80%, 100% {
@@ -93,7 +103,7 @@ iframe {
 		transform: scale(0);
 	}
 	40% {
-		-webkit-transform: scale(1.0);
-		transform: scale(1.0);
+		-webkit-transform: scale(1);
+		transform: scale(1);
 	}
 }

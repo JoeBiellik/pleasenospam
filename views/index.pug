@@ -1,25 +1,27 @@
 extends layout
 
 block content
-  a(href='https://github.com/JoeBiellik/pleasenospam', style='position: absolute; top: 0; right: 0; border: 0;')
+  a.d-none.d-sm-block(href='https://github.com/JoeBiellik/pleasenospam', style='position: absolute; top: 0; right: 0; border: 0;')
     img(src='https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png', alt='Fork me on GitHub')
 
+  main.container.py-4(data-default=defaultAddress)
+    header.row.justify-content-end.mt-1.mb-xl-3
+      div.col-lg-6
+        h1.display-3 #{title}
 
-  main(data-default=defaultAddress).container.py-4
-    header#guest
-      h1.display-3.float-md-left.mb-5.mr-3 #{title}
-
-      form.input-group.float-md-right
-        input.form-control.text-md-right#address(type='text', pattern="[a-z0-9!#$%&'*+/=?^_`{|}~.-]{1,64}", title='Valid email address', required, autofocus)
-        span.input-group-addon @
-        div.input-group-btn
-          button.btn.btn-secondary.dropdown-toggle#domain(data-toggle='dropdown') #{domains[0]}
-          div.dropdown-menu.dropdown-menu-right
-            each domain in domains
-              a.dropdown-item(href='#') #{domain}
-          button.btn.btn-success Go
-          button(type='button', data-toggle='tooltip', data-placement='right', data-trigger='manual', title='Copied')#clipboard.btn.btn-secondary
-            i.fa.fa-clipboard
+      div.col-lg-6.col-md-9.mt-4
+        form.input-group.mt-xl-1
+          input.form-control.text-right#address(type='text', pattern="[a-z0-9!#$%&'*+/=?^_`{|}~.-]{1,64}", title='Valid email address', required, autofocus)
+          div.input-group-append
+            span.input-group-text @
+            button.btn.btn-outline-gray.dropdown-toggle#domain(data-toggle='dropdown') #{domains[0]}
+            div.dropdown-menu.dropdown-menu-right
+              each domain in domains
+                a.dropdown-item(href='#') #{domain}
+          div.input-group-append
+            button.btn.btn-success(type='button') Go
+            button#clipboard.btn.btn-outline-gray(type='button', data-toggle='tooltip', data-placement='right', data-trigger='manual', title='Copied')
+              i.fa.fa-clipboard
 
     div.py-4.clearfix
 
@@ -30,7 +32,7 @@ block content
 
     div.alert.alert-danger.hidden
       h4.alert-heading Something has gone wrong!
-      p.mb-0 Please check you entered a valid email address or try #[a(href='/').alert-link reloading the page]
+      p.mb-0 Please check you entered a valid email address or try #[a.alert-link(href='/') reloading the page]
 
     div.jumbotron.py-4.hidden
       button#test.btn.btn-outline-primary.mt-4.float-md-right Send me a test email
