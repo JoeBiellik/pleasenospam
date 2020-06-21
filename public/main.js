@@ -220,7 +220,7 @@ Controller.prototype = {
 		this.elements.spinner.addClass('hidden');
 	},
 	subscribe: function(emailAddress) {
-		this.sse = new EventSource('/' + emailAddress + '/updates');
+		this.sse = new EventSource('/' + emailAddress + '.feed');
 
 		var self = this;
 
@@ -272,7 +272,7 @@ Controller.prototype = {
 		var domain = this.elements.domain.text();
 		var email = address + '@' + domain;
 
-		$.get('/' + email + '/test');
+		$.post('/' + email);
 	},
 	onHashChange: function() {
 		var hash = this.getHash();
