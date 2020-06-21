@@ -1,4 +1,4 @@
-const thinky = require('../db')();
+const thinky = require('../db');
 
 module.exports = thinky.createModel('emails', {
 	id: thinky.type.string().options({ enforce_missing: false }),
