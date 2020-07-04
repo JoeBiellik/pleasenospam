@@ -3,17 +3,23 @@
     "node": true
   },
   "parserOptions": {
-      "ecmaVersion": 8
+      "ecmaVersion": 11
   },
   "extends": ["eslint:recommended"],
   "rules": {
-    "indent": ["error", "tab"],
-    "quotes": ["error", "single", "avoid-escape"],
-    "linebreak-style": ["error", "unix"],
-    "semi": ["error", "always"],
-    "no-trailing-spaces": ["warn"],
     "comma-dangle": ["error"],
+    "indent": ["error", "tab"],
+    "linebreak-style": ["error", "unix"],
     "no-console": ["warn", { "allow": ["warn", "error"] }],
-    "space-before-function-paren": ["error", "never"]
+    "no-extra-parens": ["error"],
+    "no-loss-of-precision": ["error"],
+    "no-promise-executor-return": ["error"],
+    "no-template-curly-in-string": ["error"],
+    "no-trailing-spaces": ["warn"],
+    "no-unreachable-loop": ["error"],
+    "no-useless-backreference": ["error"],
+    "quotes": ["error", "single", "avoid-escape"],
+    "semi": ["error", "always"],
+    "space-before-function-paren": ["error", {"anonymous": "never", "named": "never", "asyncArrow": "always"}]
   }
 }
