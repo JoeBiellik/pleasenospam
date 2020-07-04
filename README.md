@@ -3,11 +3,11 @@
 [![Release Version](https://img.shields.io/github/release/JoeBiellik/pleasenospam.svg)](https://github.com/JoeBiellik/pleasenospam/releases)
 [![Dependencies](https://img.shields.io/david/JoeBiellik/pleasenospam.svg)](https://david-dm.org/JoeBiellik/pleasenospam)
 
-Simple [Node.js](https://nodejs.org/) temporary email service built with [Koa](https://koajs.com/), [RethinkDB](https://rethinkdb.com/), [Nodemailer](https://nodemailer.com/), [Pug](https://pugjs.org/), [Bootstrap](https://getbootstrap.com/) and [Handlebars.js](https://handlebarsjs.com/).
+> Simple [Node.js](https://nodejs.org/) temporary email service built with [Koa](https://koajs.com/), [RethinkDB](https://rethinkdb.com/), [Nodemailer](https://nodemailer.com/), [Pug](https://pugjs.org/), [Bootstrap](https://getbootstrap.com/) and [Handlebars.js](https://handlebarsjs.com/).
 
 The app consists of two parts: a web frontend for viewing stored mail and a SMTP server which accepts messages and saves them in the database.
 
-> Use it now at [pleasenospam.email](https://pleasenospam.email/)
+Use it now at [pleasenospam.email](https://pleasenospam.email/)
 
 ## Features
 * Real-time email notifications powered by [RethinkDB changefeeds](https://rethinkdb.com/docs/changefeeds/javascript/) and [server-sent events](https://developer.mozilla.org/docs/Web/API/Server-sent_events).
@@ -23,22 +23,17 @@ The app consists of two parts: a web frontend for viewing stored mail and a SMTP
 
 2. Install dependencies:
   ```sh
-  docker-compose run --rm --no-deps app npm install
+  docker-compose run -e NODE_ENV= --rm --no-deps app npm install
   ```
 
-3. Start RethinkDB:
-  ```sh
-  docker-compose up -d db
-  ```
-
-4. Start the mail server:
+3. Start the mail server:
   ```sh
   docker-compose up -d mail
   ```
 
-5. Start the frontend and watch for code changes:
+4. Start the frontend and watch for changes:
   ```sh
-  docker-compose run app npm run watch
+  docker-compose run -e NODE_ENV= --rm --service-ports app npm run watch
   ```
 
 ## Deployment
@@ -48,7 +43,7 @@ The app consists of two parts: a web frontend for viewing stored mail and a SMTP
 
 3. Configure `docker-compose.yml` with Docker options and ports to use
 
-4. Start the frontend, database and mail server:
+4. Start the production frontend, database and mail servers:
   ```sh
   docker-compose up
   ```
