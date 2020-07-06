@@ -88,12 +88,12 @@ module.exports = {
 		});
 
 		connection.connect(() => {
-			let envelope = {
+			const envelope = {
 				from: config.app.test.fromAddress + '@' + config.mail.domains[0],
 				to: ctx.params.email
 			};
 
-			let mail = mailcomposer({
+			const mail = mailcomposer({
 				from: '"' + config.app.test.fromName + '" <' + envelope.from + '>',
 				to: envelope.to,
 				subject: config.app.test.subject,

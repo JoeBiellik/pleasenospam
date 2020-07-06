@@ -41,7 +41,7 @@ const server = new SMTPServer({
 					email.text = text;
 					email.html = html;
 
-					(new Email(email)).save();
+					new Email(email).save();
 
 					callback();
 				});
