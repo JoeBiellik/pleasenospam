@@ -5,6 +5,8 @@ const email = require('./controllers/email');
 const sse = require('./controllers/sse');
 
 router.get('/', async (ctx) => {
+	ctx.set('Cache-Control', 'public');
+
 	await ctx.render('index', {
 		pretty: config.app.prettyHtml,
 		title: config.app.title,
@@ -12,6 +14,9 @@ router.get('/', async (ctx) => {
 		domains: config.mail.domains
 	});
 });
+
+router.param('email', email.validateEmail);
+router.param('id', email.validateId);
 
 router.get('/:email.json', email.get);
 router.get('/:email.feed', sse.subscribe);

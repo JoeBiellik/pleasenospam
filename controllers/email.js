@@ -3,78 +3,111 @@ const SMTPConnection = require('smtp-connection');
 const mailcomposer = require('mailcomposer');
 const Emails = require('../models/email');
 
-module.exports = {
-	async get(ctx) {
-		const [address, domain] = ctx.params.email.split('@');
-		const validator = new RegExp(/^([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|"(\[\]!#-[^-~ \t]|(\\[\t -~]))+")$/);
+const emailAddresses = require('email-addresses');
+const reservedEmailAddressesList = require('reserved-email-addresses-list');
+const reservedAdminList = require('reserved-email-addresses-list/admin-list.json');
 
-		if (!address.match(validator)) {
-			ctx.throw('Invalid email address', 400);
+module.exports = {
+	validateEmail(email, ctx, next) {
+		const parsed = emailAddresses.parseOneAddress(email);
+
+		if (parsed === null) {
+			ctx.throw(400, 'Invalid email address', {
+				headers: {
+					'Cache-Control': 'no-cache'
+				}
+			});
+		}
+
+		const local = parsed.local.toLowerCase();
+		const domain = parsed.domain.toLowerCase();
+
+		let reserved = reservedEmailAddressesList.find(addr => addr === local);
+		if (!reserved) reserved = reservedAdminList.find(addr => addr === local || local.startsWith(addr) || local.endsWith(addr));
+
+		if (reserved) {
+			ctx.throw(400, 'Reserved email address', {
+				headers: {
+					'Cache-Control': 'no-cache'
+				}
+			});
 		}
 
 		if (!config.mail.domains.includes(domain)) {
-			ctx.throw('Invalid email domain', 400);
+			ctx.throw(400, 'Invalid email domain', {
+				headers: {
+					'Cache-Control': 'no-cache'
+				}
+			});
 		}
 
+		ctx.email = email;
+
+		return next();
+	},
+
+	async validateId(id, ctx, next) {
+		try {
+			const email = await Emails.get(id).run();
+
+			ctx.id = id;
+			ctx.email = email;
+		} catch (ex) {
+			ctx.throw(404, 'Email not found', {
+				headers: {
+					'Cache-Control': 'no-cache'
+				}
+			});
+		}
+
+		return next();
+	},
+
+	async get(ctx) {
 		try {
 			const emails = await Emails.filter((email) => {
 				return email('to').contains((to) => {
-					return to('address').eq(ctx.params.email);
+					return to('address').eq(ctx.email);
 				});
 			}).orderBy('date');
 
+			ctx.set('Cache-Control', 'no-cache');
 			ctx.body = emails;
 		} catch (ex) {
-			ctx.throw('Email not found', 404);
+			ctx.throw(404, 'Email not found', {
+				headers: {
+					'Cache-Control': 'no-cache'
+				}
+			});
 		}
 	},
 
 	async raw(ctx) {
-		try {
-			const email = await Emails.get(ctx.params.id).run();
-
-			if ('download' in ctx.query) ctx.attachment('email-' + ctx.params.id + '-raw.txt');
-			ctx.type = 'text/plain; charset=utf-8';
-			ctx.body = email.original || '';
-		} catch (ex) {
-			ctx.throw('Email not found', 404);
-		}
+		ctx.set('Cache-Control', 'public');
+		ctx.set('X-Frame-Options', 'SAMEORIGIN');
+		if ('download' in ctx.query) ctx.attachment('email-' + ctx.id + '-raw.txt');
+		ctx.body = ctx.email.original || '';
 	},
 
 	async html(ctx) {
-		try {
-			const email = await Emails.get(ctx.params.id).run();
-
-			if ('download' in ctx.query) ctx.attachment('email-' + ctx.params.id + '.html');
-			ctx.type = 'text/html; charset=utf-8';
-			ctx.body = email.html || '';
-			ctx.set('X-Frame-Options', 'SAMEORIGIN');
-		} catch (ex) {
-			ctx.throw('Email not found', 404);
-		}
+		ctx.set('Cache-Control', 'public');
+		ctx.set('X-Frame-Options', 'SAMEORIGIN');
+		if ('download' in ctx.query) ctx.attachment('email-' + ctx.id + '.html');
+		ctx.body = ctx.email.html || '';
 	},
 
 	async text(ctx) {
-		try {
-			const email = await Emails.get(ctx.params.id).run();
-
-			if ('download' in ctx.query) ctx.attachment('email-' + ctx.params.id + '.txt');
-			ctx.type = 'text/plain; charset=utf-8';
-			ctx.body = email.text || '';
-			ctx.set('X-Frame-Options', 'SAMEORIGIN');
-		} catch (ex) {
-			ctx.throw('Email not found', 404);
-		}
+		ctx.set('Cache-Control', 'public');
+		ctx.set('X-Frame-Options', 'SAMEORIGIN');
+		if ('download' in ctx.query) ctx.attachment('email-' + ctx.id + '.txt');
+		ctx.body = ctx.email.text || '';
 	},
 
 	async delete(ctx) {
-		try {
-			await Emails.get(ctx.params.id).delete();
+		await Emails.get(ctx.id).delete();
 
-			ctx.status = 204;
-		} catch (ex) {
-			ctx.throw('Email not found', 404);
-		}
+		ctx.set('Cache-Control', 'no-cache');
+		ctx.status = 204;
 	},
 
 	test(ctx) {
@@ -90,7 +123,7 @@ module.exports = {
 		connection.connect(() => {
 			const envelope = {
 				from: config.app.test.fromAddress + '@' + config.mail.domains[0],
-				to: ctx.params.email
+				to: ctx.email
 			};
 
 			const mail = mailcomposer({
@@ -110,6 +143,7 @@ module.exports = {
 			});
 		});
 
+		ctx.set('Cache-Control', 'no-cache');
 		ctx.status = 204;
 	}
 };
