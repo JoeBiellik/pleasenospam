@@ -168,7 +168,13 @@ Controller.prototype = {
 			} else {
 				self.clear();
 			}
-		}).fail(function() {
+		}).fail(function(e) {
+			if (e.status == 400) {
+				$('h4', self.elements.error).text(e.responseText);
+			} else {
+				$('h4', self.elements.error).text('Something has gone wrong!');
+			}
+
 			self.elements.error.removeClass('hidden');
 			self.elements.table.addClass('hidden');
 			self.elements.empty.addClass('hidden');
