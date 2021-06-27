@@ -23,27 +23,23 @@ Use it now at [pleasenospam.email](https://pleasenospam.email/)
 
 2. Install dependencies:
   ```sh
-  docker-compose run -e NODE_ENV= --rm --no-deps app npm install
+  docker-compose run --rm --no-deps pleasenospam-app npm install
   ```
 
 3. Start the mail server:
   ```sh
-  docker-compose up -d mail
+  docker-compose up -d pleasenospam-mail-server
   ```
 
 4. Start the frontend and watch for changes:
   ```sh
-  docker-compose run -e NODE_ENV= --rm --service-ports app npm run watch
+  docker-compose run pleasenospam-app npm run watch
   ```
 
 ## Deployment
-1. Follow the first two development steps.
+1. Configure `docker-compose.yml` with Docker options and ports to use
 
-2. Configure `config/docker.json` with any custom setting overrides
-
-3. Configure `docker-compose.yml` with Docker options and ports to use
-
-4. Start the production frontend, database and mail servers:
+2. Start the frontend, database and mail server:
   ```sh
-  docker-compose up
+  docker-compose up --build
   ```
