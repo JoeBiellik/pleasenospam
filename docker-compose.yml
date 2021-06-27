@@ -32,7 +32,7 @@ services:
     expose:
       - 25
     ports:
-     - "2525:25"
+     - "25:25"
   pleasenospam-db:
     image: rethinkdb:latest
     restart: always
