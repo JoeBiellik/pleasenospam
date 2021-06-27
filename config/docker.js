@@ -3,11 +3,6 @@ var defer = require('config/defer').deferConfig;
 module.exports = {
   "app": {
     "port": process.env.PLEASE_NO_SPAM_APP_PORT || 80,
-    "keys": defer(function () {
-      var keys = process.env.PLEASE_NO_SPAM_APP_KEYS.replace(/^"(.+(?="$))"$/, '$1').split(' ');
-      console.log(keys);
-      return keys;
-    }),
     "smtp": {
       "host": process.env.DOCKER_MAIL_HOST_NAME || "pleasenospam-mail-server",
       "port": process.env.DOCKER_MAIL_HOST_PORT || 25
