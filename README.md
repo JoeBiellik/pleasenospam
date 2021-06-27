@@ -37,9 +37,18 @@ Use it now at [pleasenospam.email](https://pleasenospam.email/)
   ```
 
 ## Deployment
-1. Configure `docker-compose.yml` with Docker options and ports to use
+0. Configure DNS for frontend (A/AAAA) and mail (MX).
 
-2. Start the frontend, database and mail server:
+1. Copy and configure environment:
+  ```sh
+  cp example.env .env && $EDITOR .env
+  ```
+2. Optionally configure `docker-compose.yml`.
+
+3. Start the frontend, database and mail server:
   ```sh
   docker-compose up --build
   ```
+  
+Frontend is available on docker host `0.0.0.0:3000`.  
+Remember to pull, (hopefully audit,) and build once in a while.

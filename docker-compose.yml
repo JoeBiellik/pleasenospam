@@ -11,9 +11,8 @@ services:
      - pleasenospam-mail-server
      - pleasenospam-db
     environment:
-     - NODE_ENV=docker
-     - PLEASE_NO_SPAM_APP_KEYS="random_key_here"
-     - NO_SPAM_MAIL_DOMAINS="pleasenospam.email spamlessmail.org"
+     - PLEASE_NO_SPAM_APP_KEYS="random_key_here" # env option not implemented
+    env_file: .env
     ports:
      - "3000:80"
   pleasenospam-mail-server:
@@ -27,8 +26,7 @@ services:
       - pleasenospam-db
     environment:
      - NODE_ENV=docker
-     - PLEASE_NO_SPAM_MAIL_HOST_NAME="pleasenospam.email"
-     - NO_SPAM_MAIL_DOMAINS="pleasenospam.email spamlessmail.org"
+    env_file: .env
     expose:
       - 25
     ports:
