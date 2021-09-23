@@ -1,46 +1,42 @@
-version: "3"
-
+version: '3'
 services:
-  app:
-    image: node:latest
-    command: "npm start"
-    restart: unless-stopped
-    working_dir: /app
+  pleasenospam-app:
+    image: joebiellik/pleasenospam:1.0.0-app
+    restart: always
+    container_name: pleasenospam-app
+    build:
+      context: ./
+      dockerfile: ./app/Dockerfile
     depends_on:
-      - mail
-      - db
+     - pleasenospam-mail-server
+     - pleasenospam-db
     environment:
-      - NODE_ENV=production
-      - NODE_CONFIG_ENV=docker
-    volumes:
-      - .:/app:Z
+     - PLEASE_NO_SPAM_APP_KEYS="random_key_here" # env option not implemented
+    env_file: .env
     ports:
-      - "80:80"
-
-  mail:
-    image: node:latest
-    command: "npm run mail-server"
-    restart: unless-stopped
-    working_dir: /app
+     - "3000:80"
+  pleasenospam-mail-server:
+    image: joebiellik/pleasenospam:1.0.0-mail-server
+    restart: always
+    container_name: pleasenospam-mail-server
+    build:
+      context: ./
+      dockerfile: ./mail-server/Dockerfile
     depends_on:
-      - db
+      - pleasenospam-db
     environment:
-      - NODE_ENV=production
-      - NODE_CONFIG_ENV=docker
-    volumes:
-      - .:/app:Z
+     - NODE_ENV=docker
+    env_file: .env
     expose:
       - 25
     ports:
-      - "25:25"
-
-  db:
+     - "25:25"
+  pleasenospam-db:
     image: rethinkdb:latest
-    restart: unless-stopped
+    restart: always
+    container_name: pleasenospam-db
     volumes:
-      - ./db:/data:Z
-    expose:
-      - 28015
-    ports:
-      - "8080:8080"
-      - "28015:28015"
+     - pleasenospam-db:/data
+
+volumes:
+  pleasenospam-db:
